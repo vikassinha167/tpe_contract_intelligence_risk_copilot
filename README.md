@@ -1,8 +1,8 @@
-# Contract Intelligence Risk Copilot
+## Contract Intelligence Risk Copilot
 A system that ingests contracts (PDFs, Emails, Scans), extracts structured clauses  (using Azure Document Intelligence), enriches with semantic understanding (using Azure Language), stores &amp; indexes knowledge (using Azure Search + SQL + Blob Storage) and enables conversational querying (Azure Open AI via Foundry) with RAI guardrails implementation.
 
 
-# Creating Virtual Environment and Installing all dependencies - Step by step instructions
+## Creating Virtual Environment and Installing all dependencies - Step by step instructions
 
 ### Open the Terminal in VS Code:
 
@@ -13,18 +13,18 @@ cd /workspaces/tpe_contract_intelligence_risk_copilot
 
 ### Create the Virtual Environment:
 
-Run the following command to create a virtual environment named venv in your project folder:
+Run the following command to create a virtual environment named .venv in your project folder:
 
-python -m venv venvsource venv/bin/activate
+python -m venv .venv
 
 This creates a venv/ directory in your project root with the isolated environment.
-Activate the Virtual Environment:
 
-### Activate it using:
 
-source venv/bin/activate
+### Activate the Virtual Environment:
 
-Your terminal prompt should now show (venv) at the beginning, indicating it's active.
+source .venv/bin/activate
+
+Your terminal prompt should now show (.venv) at the beginning, indicating it's active.
 
 ### Install Dependencies (if applicable):
 
@@ -41,6 +41,6 @@ To exit the virtual environment:
 deactivate
 
 ## Additional Notes
-1. The venv/ folder should be added to your .gitignore to avoid committing it to Git.
+1. The .venv/ folder should be added to your .gitignore to avoid committing it to Git.
 2. In GitHub Codespaces, Python 3 is typically pre-installed, but if you encounter issues, run python --version to confirm.
 3. For your project, consider creating a requirements.txt file to list dependencies like Azure SDKs and any ML libraries.
