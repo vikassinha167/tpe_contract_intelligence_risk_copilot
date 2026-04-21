@@ -1,6 +1,6 @@
 # Contract Intelligence & Risk Scoring — Multi-Agent Enterprise Solution
 
-An end-to-end, **teaching-grade** Python reference implementation of a multi-agent
+An end-to-end, Python reference implementation of a multi-agent
 Contract Intelligence & Risk Scoring system built on **Azure AI Foundry**.
 
 The codebase is intentionally written to demonstrate **SOLID** principles, clean
@@ -28,7 +28,7 @@ Run the following command to create a virtual environment named .venv in your pr
 
 python -m venv .venv
 
-This creates a venv/ directory in your project root with the isolated environment.
+This creates a .venv/ directory in your project root with the isolated environment.
 
 
 ### Activate the Virtual Environment:
@@ -39,11 +39,9 @@ Your terminal prompt should now show (.venv) at the beginning, indicating it's a
 
 ### Install Dependencies (if applicable):
 
-If you have a requirements.txt file (or plan to create one), install packages:
+Run following command to install all dependencies - 
 
 pip install -r requirements.txt
-
-For your Azure-based project, you might need to install Azure SDKs later, e.g., pip install azure-ai-documentintelligence azure-ai-textanalytics azure-search-documents.
 
 ### Deactivate When Done (optional):
 
@@ -54,11 +52,8 @@ deactivate
 ## Additional Notes
 1. The .venv/ folder should be added to your .gitignore to avoid committing it to Git.
 2. In GitHub Codespaces, Python 3 is typically pre-installed, but if you encounter issues, run python --version to confirm.
-3. For your project, consider creating a requirements.txt file to list dependencies like Azure SDKs and any ML libraries.
 ---------------------------------------------------------------------------------------
----------------------------------------------------------------------------------------
----------------------------------------------------------------------------------------
----------------------------------------------------------------------------------------
+
 ## 1. Use case
 
 Enterprises receive thousands of contracts (MSAs, SOWs, NDAs, vendor agreements).
@@ -118,13 +113,12 @@ src/
 
 ## 4. Quick start
 
+Create a copy of .env.example file and rename it to .env
+Fill in your Azure endpoints and other values in .env file
+Push one or two sample contract into blob container
+
 ```powershell
-cd contract_intelligence
-python -m venv .venv
-.\.venv\Scripts\Activate.ps1
-pip install -r requirements.txt
-copy .env.example .env   # fill in your Azure endpoints
-python main.py --blob-name "sample_msa.pdf"
+python main.py --blob-name "<ContractFileName.pdf>"
 ```
 
 ## 5. Testing
