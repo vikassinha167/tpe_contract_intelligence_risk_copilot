@@ -16,9 +16,7 @@ from src.services import ContractIntelligencePipeline, DependencyContainer
 def _parse_args() -> argparse.Namespace:
     p = argparse.ArgumentParser(description="Contract Intelligence & Risk Scoring")
     p.add_argument("--blob-name", required=True, help="Blob name in the contracts container.")
-    p.add_argument("--title", default=None, help="Optional human title for the contract.")
     return p.parse_args()
-
 
 def main() -> int:
     args = _parse_args()
