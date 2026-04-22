@@ -138,13 +138,21 @@ Push one or two sample contract into blob container
 python main.py --blob-name "<ContractFileName.pdf>"
 ```
 
-## RBAC Permissions (Steps to resolve 403 AuthorizationPermissionMismatch error)
+## RBAC Permissions (Steps to resolve `403 AuthorizationPermissionMismatch` error) with Azure Storage account
 
 If the Ingestion agent fails with "403 AuthorizationPermissionMismatch" error, follow the below process - 
 1. Open Azure Storage account 
 2. Make container from Private to Public , if allowed.
 3. If not, then open IAM of storage account and click on "Add - > Add Role Assignment".
 4. Search for "Storage Blob Data Contributor", select this option and move next.
+5. Add your identity (since we are running on azure Default Credentials) else add Service Principal identity.
+
+## Forbidden (Steps to resolve `Operation returned an invalid status 'Forbidden'` error) with Azure AI Search Index
+
+If the Ingestion agent fails with "403 AuthorizationPermissionMismatch" error, follow the below process - 
+1. Open Azure AI Search Index 
+2. Open IAM of storage account and click on "Add - > Add Role Assignment".
+4. Search for "Search Service Contributor", select this option and move next.
 5. Add your identity (since we are running on azure Default Credentials) else add Service Principal identity.
 
 ## 5. Testing
