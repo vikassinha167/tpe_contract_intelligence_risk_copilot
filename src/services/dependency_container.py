@@ -31,7 +31,7 @@ from src.infrastructure import (
     AzureLanguageAnalyzer,
     AzureOpenAILlmClient,
     AzureSearchIndexer,
-    AzureSqlContractRepository,
+    # AzureSqlContractRepository,
 )
 from src.interfaces import (
     IBlobStorage,
@@ -97,9 +97,9 @@ class DependencyContainer:
             api_version=self._settings.openai_api_version,
         )
 
-    @cached_property
-    def repository(self) -> IContractRepository:
-        return AzureSqlContractRepository(self._settings.sql_connection_string)
+    # @cached_property
+    # def repository(self) -> IContractRepository:
+    #     return AzureSqlContractRepository(self._settings.sql_connection_string)
 
     @cached_property
     def guarded_invoker(self) -> GuardedLlmInvoker:
@@ -117,6 +117,6 @@ class DependencyContainer:
                 ComplianceAgent(),
                 SummarizationAgent(self.guarded_invoker),
                 IndexingAgent(self.search_indexer),
-                PersistenceAgent(self.repository),
+                # PersistenceAgent(self.repository),
             ]
         )

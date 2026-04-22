@@ -12,7 +12,6 @@ artifact as well as a production starting point.
 ## Contract Intelligence Risk Copilot
 A system that ingests contracts (PDFs, Emails, Scans), extracts structured clauses  (using Azure Document Intelligence), enriches with semantic understanding (using Azure Language), stores &amp; indexes knowledge (using Azure Search + SQL + Blob Storage) and enables conversational querying (Azure Open AI via Foundry) with RAI guardrails implementation.
 
-
 ## Creating Virtual Environment and Installing all dependencies - Step by step instructions
 
 ### Open the Terminal in VS Code:
@@ -52,6 +51,24 @@ deactivate
 ## Additional Notes
 1. The .venv/ folder should be added to your .gitignore to avoid committing it to Git.
 2. In GitHub Codespaces, Python 3 is typically pre-installed, but if you encounter issues, run python --version to confirm.
+---------------------------------------------------------------------------------------
+
+### Install Azure CLI 
+
+Run following command in terminal after activating your .venv
+
+curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
+
+Check the installed version of az
+
+az version
+
+Once the above command shows azure-cli version, type in below command 
+
+az login
+
+This will open a browser and ask you to sign in by pasting the code which it generates and then caches the credentials locally.
+
 ---------------------------------------------------------------------------------------
 
 ## 1. Use case
@@ -120,6 +137,15 @@ Push one or two sample contract into blob container
 ```powershell
 python main.py --blob-name "<ContractFileName.pdf>"
 ```
+
+## RBAC Permissions (Steps to resolve 403 AuthorizationPermissionMismatch error)
+
+If the Ingestion agent fails with "403 AuthorizationPermissionMismatch" error, follow the below process - 
+1. Open Azure Storage account 
+2. Make container from Private to Public , if allowed.
+3. If not, then open IAM of storage account and click on "Add - > Add Role Assignment".
+4. Search for "Storage Blob Data Contributor", select this option and move next.
+5. Add your identity (since we are running on azure Default Credentials) else add Service Principal identity.
 
 ## 5. Testing
 

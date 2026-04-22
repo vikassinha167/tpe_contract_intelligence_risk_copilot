@@ -7,7 +7,7 @@ from .azure_key_vault import AzureKeyVaultSecretProvider
 from .azure_language_service import AzureLanguageAnalyzer
 from .azure_openai_client import AzureOpenAILlmClient
 from .azure_search_index import AzureSearchIndexer
-from .azure_sql_repository import AzureSqlContractRepository
+# from .azure_sql_repository import AzureSqlContractRepository
 
 __all__ = [
     "AzureBlobStorage",
@@ -18,5 +18,5 @@ __all__ = [
     "AzureLanguageAnalyzer",
     "AzureOpenAILlmClient",
     "AzureSearchIndexer",
-    "AzureSqlContractRepository",
+    # "AzureSqlContractRepository",
 ]

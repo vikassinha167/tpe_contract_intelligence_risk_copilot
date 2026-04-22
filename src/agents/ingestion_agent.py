@@ -6,7 +6,6 @@ from src.interfaces import IBlobStorage
 
 from .base_agent import BaseAgent
 
-
 class IngestionAgent(BaseAgent):
     name = "IngestionAgent"
 

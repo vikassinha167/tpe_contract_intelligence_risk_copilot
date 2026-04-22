@@ -26,7 +26,7 @@ def main() -> int:
     container = DependencyContainer(settings)
     pipeline = ContractIntelligencePipeline(container.build_orchestrator())
 
-    contract = pipeline.process(args.blob_name, title=args.title)
+    contract = pipeline.process(args.blob_name, title=" Contract: " + args.blob_name)
 
     # Print a concise human-readable result + a JSON dump for tooling.
     print("=" * 80)
