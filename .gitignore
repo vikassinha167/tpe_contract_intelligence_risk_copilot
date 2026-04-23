@@ -236,3 +236,4 @@ marimo/_lsp/
 __marimo__/
 
 .venv/
+Output/

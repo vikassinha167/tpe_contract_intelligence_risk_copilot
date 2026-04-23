@@ -14,11 +14,9 @@ from src.agents import (
     ComplianceAgent,
     ExtractionAgent,
     GuardedLlmInvoker,
-    IndexingAgent,
     IngestionAgent,
     LanguageEnrichmentAgent,
     OrchestratorAgent,
-    PersistenceAgent,
     RiskScoringAgent,
     SummarizationAgent,
 )
@@ -30,18 +28,14 @@ from src.infrastructure import (
     AzureKeyVaultSecretProvider,
     AzureLanguageAnalyzer,
     AzureOpenAILlmClient,
-    AzureSearchIndexer,
-    # AzureSqlContractRepository,
 )
 from src.interfaces import (
     IBlobStorage,
-    IContractRepository,
     IDocumentProcessor,
     IGuardrail,
     ILanguageAnalyzer,
     ILlmClient,
     IResponseEvaluator,
-    ISearchIndexer,
     ISecretProvider,
 )
 
@@ -70,12 +64,6 @@ class DependencyContainer:
     @cached_property
     def language_analyzer(self) -> ILanguageAnalyzer:
         return AzureLanguageAnalyzer(self._settings.language_endpoint)
-
-    @cached_property
-    def search_indexer(self) -> ISearchIndexer:
-        return AzureSearchIndexer(
-            self._settings.search_endpoint, self._settings.search_index
-        )
 
     @cached_property
     def llm_client(self) -> ILlmClient:
@@ -116,7 +104,5 @@ class DependencyContainer:
                 RiskScoringAgent(self.guarded_invoker),
                 ComplianceAgent(),
                 SummarizationAgent(self.guarded_invoker),
-                IndexingAgent(self.search_indexer),
-                # PersistenceAgent(self.repository),
             ]
         )

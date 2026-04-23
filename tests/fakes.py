@@ -24,7 +24,6 @@ from src.interfaces import (
     LanguageAnalysisResult,
 )
 
-
 class FakeBlobStorage(IBlobStorage):
     def __init__(self, blobs: dict[str, bytes]) -> None:
         self._blobs = blobs
@@ -39,11 +38,9 @@ class FakeBlobStorage(IBlobStorage):
     def list_blobs(self, prefix: str | None = None) -> list[str]:
         return [n for n in self._blobs if not prefix or n.startswith(prefix)]
 
-
 class FakeDocumentProcessor(IDocumentProcessor):
     def extract(self, content: bytes) -> ExtractedDocument:
         return ExtractedDocument(text=content.decode("utf-8"), page_count=1)
-
 
 class FakeLanguageAnalyzer(ILanguageAnalyzer):
     def analyze(self, text: str) -> LanguageAnalysisResult:
@@ -52,7 +49,6 @@ class FakeLanguageAnalyzer(ILanguageAnalyzer):
             key_phrases=["payment", "termination"],
             pii_entities=[],
         )
-
 
 class FakeSearchIndexer(ISearchIndexer):
     def __init__(self) -> None:
@@ -67,7 +63,6 @@ class FakeSearchIndexer(ISearchIndexer):
     def search(self, query: str, top: int = 5) -> list[dict[str, Any]]:
         return list(self.docs.values())[:top]
 
-
 class FakeGuardrail(IGuardrail):
     def check_input(self, text: str) -> GuardrailVerdict:
         return GuardrailVerdict(allowed=True)
@@ -75,13 +70,11 @@ class FakeGuardrail(IGuardrail):
     def check_output(self, text: str) -> GuardrailVerdict:
         return GuardrailVerdict(allowed=True)
 
-
 class FakeEvaluator(IResponseEvaluator):
     def evaluate(self, *, query: str, response: str, context: str | None = None) -> EvaluationScores:
         return EvaluationScores(
             groundedness=4.5, relevance=4.7, coherence=4.8, fluency=4.9
         )
-
 
 class FakeRepository(IContractRepository):
     def __init__(self) -> None:
@@ -92,7 +85,6 @@ class FakeRepository(IContractRepository):
 
     def get(self, contract_id: str) -> Contract | None:
         return self.store.get(contract_id)
-
 
 class ScriptedLlmClient(ILlmClient):
     """Returns canned responses based on the system prompt content."""

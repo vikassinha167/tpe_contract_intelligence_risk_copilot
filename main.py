@@ -7,6 +7,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import sys
 
 from config import configure_logging, get_settings
@@ -28,7 +29,7 @@ def main() -> int:
 
     contract = pipeline.process(args.blob_name, title=" Contract: " + args.blob_name)
 
-    # Print a concise human-readable result + a JSON dump for tooling.
+    # Print human-readable summary
     print("=" * 80)
     print(f"Contract ID : {contract.contract_id}")
     print(f"Stage       : {contract.stage.value}")
@@ -36,17 +37,34 @@ def main() -> int:
     print(f"Risk Score  : {contract.overall_risk_score}")
     print(f"Clauses     : {len(contract.clauses)}")
     print(f"Compliance  : "
-          f"{sum(1 for f in contract.compliance_findings if f.passed)}"
-          f"/{len(contract.compliance_findings)} rules passed")
+        f"{sum(1 for f in contract.compliance_findings if f.passed)}"
+        f"/{len(contract.compliance_findings)} rules passed")
+
     if contract.executive_summary:
         print("\nExecutive Summary:\n" + contract.executive_summary)
+
     if contract.error:
         print(f"\nERROR: {contract.error}", file=sys.stderr)
-        return 1
+        sys.exit(1)
 
-    # Full JSON to stdout for downstream consumers
-    print("\n--- JSON ---")
-    print(json.dumps(contract.model_dump(mode="json"), indent=2, default=str))
+    # -------------------------------
+    # Save JSON to Output folder
+    # -------------------------------
+
+    # Create Output directory if it doesn't exist
+    output_dir = "Output"
+    os.makedirs(output_dir, exist_ok=True)
+
+    # Create a safe filename
+    file_name = f"{contract.contract_id}.json"
+    file_path = os.path.join(output_dir, file_name)
+
+    # Write JSON to file
+    with open(file_path, "w", encoding="utf-8") as f:
+        json.dump(contract.model_dump(mode="json"), f, indent=2, default=str)
+
+    print(f"\n✅ JSON saved to: {file_path}")
+
     return 0
 
 

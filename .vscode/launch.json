@@ -9,7 +9,7 @@
         "type": "debugpy",
         "request": "launch",
         "program": "${workspaceFolder}/main.py",
-        "args": ["--blob-name", "SampleContract-Mini.pdf"]
+        "args": ["--blob-name", "SampleContract-Micro.pdf"]
         }
     ]
 }
