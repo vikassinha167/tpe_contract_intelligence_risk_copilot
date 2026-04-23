@@ -147,14 +147,6 @@ If the Ingestion agent fails with "403 AuthorizationPermissionMismatch" error, f
 4. Search for "Storage Blob Data Contributor", select this option and move next.
 5. Add your identity (since we are running on azure Default Credentials) else add Service Principal identity.
 
-### Forbidden (Steps to resolve `Operation returned an invalid status 'Forbidden'` error) with Azure AI Search Index
-
-If the Ingestion agent fails with "403 AuthorizationPermissionMismatch" error, follow the below process - 
-1. Open Azure AI Search Index 
-2. Open IAM of storage account and click on "Add - > Add Role Assignment".
-4. Search for "Search Service Contributor", select this option and move next.
-5. Add your identity (since we are running on azure Default Credentials) else add Service Principal identity.
-
 ## 5. Testing
 
 ```powershell
