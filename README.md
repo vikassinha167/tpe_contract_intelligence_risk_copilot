@@ -10,7 +10,7 @@ artifact as well as a production starting point.
 ---
 
 ## Contract Intelligence Risk Copilot
-A system that ingests contracts (PDFs, Emails, Scans), extracts structured clauses  (using Azure Document Intelligence), enriches with semantic understanding (using Azure Language), stores &amp; indexes knowledge (using Azure Search + SQL + Blob Storage) and enables conversational querying (Azure Open AI via Foundry) with RAI guardrails implementation.
+A system that ingests contracts (PDFs, Emails, Scans), extracts structured clauses  (using Azure Document Intelligence), enriches with semantic understanding (using Azure Language) and enables conversational querying (Azure Open AI via Foundry) with RAI guardrails implementation.
 
 ## Creating Virtual Environment and Installing all dependencies - Step by step instructions
 
@@ -79,35 +79,30 @@ Manual review is slow, inconsistent, and risky. This solution:
 1. **Ingests** contracts (PDF/DOCX/scanned) from Azure Blob Storage.
 2. **Extracts** raw text + structure using Azure **Document Intelligence**.
 3. **Detects entities, key phrases, PII** via Azure **Language Service**.
-4. **Indexes** the contract into Azure **AI Search** for hybrid retrieval.
-5. **Analyzes clauses** (termination, liability, indemnity, IP, payment, SLA, GDPR,…)
+4. **Analyzes clauses** (termination, liability, indemnity, IP, payment, SLA, GDPR,…)
    using an LLM agent backed by Azure **OpenAI**.
-6. **Scores risk** (Low / Medium / High / Critical) with rationale per clause and
+5. **Scores risk** (Low / Medium / High / Critical) with rationale per clause and
    an aggregated contract-level score.
-7. **Checks compliance** against a configurable policy set.
-8. **Summarizes** the contract into an executive brief.
-9. **Persists** structured results into Azure **SQL**.
-10. Every LLM call is wrapped with **Azure AI Content Safety / Guardrails** and
+6. **Checks compliance** against a configurable policy set.
+7. **Summarizes** the contract into an executive brief.
+8. Every LLM call is wrapped with **Azure AI Content Safety / Guardrails** and
     evaluated by Azure AI **Evaluators** (groundedness, relevance, coherence).
 
 ## 2. Architecture (clean / hexagonal)
 
 ```
                           ┌────────────────────────────┐
-                          │       OrchestratorAgent     │
+                          │       OrchestratorAgent    │
                           └──────────────┬─────────────┘
                                          │
-   ┌────────────┬───────────────┬────────┼────────┬───────────────┬────────────┐
-   ▼            ▼               ▼        ▼        ▼               ▼            ▼
-Ingestion   Extraction    Language    Indexing  Clause         Risk        Compliance
-  Agent       Agent         Agent      Agent    Analysis       Scoring       Agent
-                                                  Agent          Agent
+   ┌────────────┬───────────────┬────────┼────────┬───────────────┬
+   ▼            ▼               ▼        ▼        ▼               ▼            
+Ingestion   Extraction    Language     Clause     Risk            Compliance
+  Agent       Agent         Agent      Analysis   Scoring         Agent
+                                       Agent      Agent           
                                          │
                                          ▼
-                                Summarization Agent
-                                         │
-                                         ▼
-                                 SQL Persistence
+                                   Summarization Agent
 
 src/
  ├─ domain/         Pure business entities & value objects (no Azure imports)
