@@ -48,10 +48,6 @@ class DependencyContainer:
 
     # -------- Infrastructure singletons (cached_property) ---------------
     @cached_property
-    def secret_provider(self) -> ISecretProvider:
-        return AzureKeyVaultSecretProvider(self._settings.key_vault_url)
-
-    @cached_property
     def blob_storage(self) -> IBlobStorage:
         return AzureBlobStorage(
             self._settings.storage_account_url, self._settings.blob_container
@@ -84,10 +80,6 @@ class DependencyContainer:
             deployment=self._settings.openai_deployment,
             api_version=self._settings.openai_api_version,
         )
-
-    # @cached_property
-    # def repository(self) -> IContractRepository:
-    #     return AzureSqlContractRepository(self._settings.sql_connection_string)
 
     @cached_property
     def guarded_invoker(self) -> GuardedLlmInvoker:
