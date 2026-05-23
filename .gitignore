@@ -57,7 +57,6 @@ env/
 ENV/
 
 # Environment variables
-.env
 .env.local
 .env.production
 
@@ -164,7 +163,6 @@ celerybeat.pid
 *.sage.py
 
 # Environments
-.env
 .envrc
 .venv
 env/
